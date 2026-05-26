@@ -7,7 +7,7 @@ An automated drink mixing and delivery system for iRobot's Stretch2 robot
 2. Run `ros2 launch stretch_core stretch_driver.launch.py mode:=navigation` on Stretch.
 3. Run `ros2 launch stretch_core d435i_high_resolution.launch.py` in a seperate terminal.
 4. Run `ros2 launch stretch_core stretch_aruco.launch.py` in a seperate terminal.
-5. In a seperate terminal, run the command `python3 stagedGrasp/stagedGrasp.py`. Ensure that Stretch can see the ArUco marker when you do so!
+5. In a seperate terminal, run the command `python3 stagedGrasp/stage_grasp.py`. Ensure that Stretch can see the ArUco marker when you do so!
   - **NOTE:** If you are unable to run this command, ensure you're in the workspace directory!
 
 For debugging, you may find it useful to have RViz show what ArUco markers it can see. To do so, run the command `ros2 run rviz2 rviz2 -d /home/hello-robot/ament_ws/src/stretch_tutorials/rviz/aruco_detector_example.rviz` in (yet another) seperate terminal!
