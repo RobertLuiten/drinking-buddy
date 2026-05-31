@@ -1,0 +1,33 @@
+
+Steps: 
+
+1) Start: 
+	-AlignNode
+	-AlignWristCup 
+	-CupUpDown 
+
+2) run utils/return_to_{something}.py
+
+3) publish to the  AlignNode topic "cup_1"  # align the wrist with the cup
+
+4) publish to the AlignWristCup topic "cup_1"	# extend and grasp the cup
+
+5) publish to the CupUpDown topic like 6cm    # picks up cup 6 cm 
+
+6) publish to the AlignNode topic "jug_handle" # moves the cup to the water jug
+
+7) pubish to the CupUpDown topic like -7cm  	# sets the cup down 
+
+8) TODO: retract the arm and dispense the water, to simulate could just use utils/return_to_{something}.py command
+
+9) publish to AlignWristCup topic "cup_1" 	# extend and grasp the cup again
+
+10) publish to CupUpDown topic like 3cm 	# lifts the cup again 
+
+11) publish to AlignNode topic "cup_supps"	# moves the cup over one spot
+
+12) publish to AlignNode topic "cup_fill" 	# moves the cup over another spot
+
+13) publish to CupUpDown topic  like -3cm 	# sets the cup down 
+
+14) TODO: move over and pick up the supplements 
