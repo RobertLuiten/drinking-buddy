@@ -83,14 +83,4 @@ Steps:
 
 26) TODO: Stir the drink 
 
-9) publish to AlignWristCup topic "cup_1" 	# extend and grasp the cup again
 
-10) publish to CupUpDown topic like 3cm 	# lifts the cup again 
-
-11) publish to AlignNode topic "cup_supps"	# moves the cup over one spot
-
-12) publish to AlignNode topic "cup_fill" 	# moves the cup over another spot
-
-13) publish to CupUpDown topic  like -3cm 	# sets the cup down 
-
-14) TODO: move over and pick up the supplements 
