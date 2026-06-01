@@ -1,3 +1,4 @@
+<!-- FOR REFERENCE ONLY; DO NOT CHANGE -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,17 +21,16 @@
   </style>
 </head>
 <body>
-  <h1>Drinking (Drinky?) Buddy (Buddies?)</h1>
-  <h2>Actions</h2>
-  <button onclick="resetPosition">Reset</button>
-  <h2>Current Status</h2>
-  <div id="currentStateList"></div>
-  <h2>Map</h2>
-  <img id="navigation_map" name="navigation_map" style="width: 100%" 
-  src="placeholder.jpg" alt="Navigation Map" onclick="clickNavigationMap(event);" 
-  draggable="false"/>
-  <ol id="navigation_list"></ol>
-  <script src="ui_control.js"></script>
+
+  <h2>Save a Pose</h2>
+  <input id="poseName" placeholder="pose name" />
+  <button onclick="savePose()">Save</button>
+
+  <h2>Saved Poses</h2>
+  <div id="poseList"></div>
+
+  <script src="pman_control_ref.js"></script>
+
 </body>
 </html>
 

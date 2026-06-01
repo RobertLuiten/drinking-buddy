@@ -1,3 +1,5 @@
+/// FOR REFERENCE ONLY; DO NOT CHANGE
+
 // Connect to rosbridge
 console.log("Loading rosbridge!");
 const ros = new ROSLIB.Ros({
@@ -71,13 +73,4 @@ function renderPoseCards(poses) {
     card.onclick = () => restorePose(name);
     container.appendChild(card);
     });
-}
-
-function clickNavigationMap(event) {
-    var xCoordinate = event.offsetX;
-    var yCoordinate = event.offsetY;
-    var navigation_list = document.getElementById('navigation_list');
-    var entry = document.createElement('li');
-    entry.appendChild(document.createTextNode('Sent (' + xCoordinate + ',' + yCoordinate + ') to rosbridge'));
-    navigation_list.appendChild(entry);
 }
