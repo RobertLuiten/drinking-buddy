@@ -97,3 +97,28 @@ function clickNavigationMap(event) {
     entry.appendChild(document.createTextNode('Sent Click (' + click_x + ',' + click_y + ') out of Image [' + img_x + ',' + img_y + '] to rosbridge'));
     navigation_list.appendChild(entry);
 }
+
+
+function startRobot(event) {
+  var start_button = document.getElementById("robotResetButton");
+  var reset_button = document.getElementById("robotStartButton");
+  start_button.disabled = false;
+  reset_button.disabled = true;
+  robotRequest.publish(new ROSLIB.Message({
+    data: JSON.stringify({ command: "start" })
+  }));
+}
+function resetPosition(event) {
+  var start_button = document.getElementById("robotResetButton");
+  var reset_button = document.getElementById("robotStartButton");
+  start_button.disabled = true;
+  reset_button.disabled = false;
+  robotRequest.publish(new ROSLIB.Message({
+    data: JSON.stringify({ command: "reset" })
+  }));
+
+}
+
+function startVoice(event) {
+  window.alert("voice control not implemented!");
+}
