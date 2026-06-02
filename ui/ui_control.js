@@ -1,3 +1,13 @@
+// Automatically calculate image size
+const img = new Image();
+img.src = 'placeholder.jpg'
+var map_img = document.getElementById("navigation_map");
+map_img.style = "background: url('" + img.src + " ');" +
+  "background-size:" + img.naturalWidth / 2 + "px;" +  
+  "width:" + img.naturalWidth / 2 + "px;" +  
+  "height:" + img.naturalHeight / 2+ "px; object-fit: contain;"
+
+
 // Connect to rosbridge
 console.log("Loading rosbridge!");
 const ros = new ROSLIB.Ros({
@@ -63,13 +73,19 @@ function display_status(cur_status) {
 }
 
 function clickNavigationMap(event) {
-    var img_x = event.target.width;
-    var img_y = event.target.height;
+    var click_dot = document.getElementById('click_dot');
+    if (event.target == click_dot) {
+      return;
+    }
+    var img_x = event.target.clientWidth;
+    var img_y = event.target.clientHeight;
     var click_x = event.offsetX;
     var click_y = event.offsetY;
     var navigation_list = document.getElementById('navigation_list');
     var entry = document.createElement('li');
     
+    click_dot.style = "height: 14px; width: 14px; margin-top: " + (click_y - (click_dot.height / 2)) + "px; margin-left: " + (click_x - (click_dot.width / 2)) + "px;";
+
     robotBroadcastLocation.publish(new ROSLIB.Message({
       data: JSON.stringify({
         img_x : img_x,

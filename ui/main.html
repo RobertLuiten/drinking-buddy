@@ -4,20 +4,7 @@
   <title>Drinking Buddy Manager</title>
   <script src="https://cdn.jsdelivr.net/gh/RobotWebTools/roslibjs/build/roslib.min.js"></script>
 
-  <style>
-    body { font-family: sans-serif; padding: 20px; }
-    .pose-card {
-      padding: 12px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      cursor: pointer;
-      background: #f7f7f7;
-    }
-    .pose-card:hover {
-      background: #eaeaea;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="csharp.css">
 </head>
 <body>
   <h1>Drinking (Drinky?) Buddy (Buddies?)</h1>
@@ -28,9 +15,11 @@
   <h2>Current Status</h2>
   <div id="currentStateList"></div>
   <h2>Map</h2>
-  <img id="navigation_map" name="navigation_map" style="width: 100%" 
-  src="placeholder.jpg" alt="Navigation Map" onclick="clickNavigationMap(event);" 
-  draggable="false"/>
+  <div id="navigation_map" name="navigation_map"
+  style="background: url('placeholder.jpg'); width:100%; height:100%;" alt="Navigation Map" onclick="clickNavigationMap(event);" 
+  draggable="false">
+    <img src="white_dot.png" style="visibility: hidden;" draggable="false" class="noselect" id="click_dot"/>
+  </div>  
   <ol id="navigation_list"></ol>
   <script src="ui_control.js"></script>
 </body>
