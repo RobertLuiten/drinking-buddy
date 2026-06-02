@@ -70,6 +70,8 @@ Steps:
 20) publish to GripperNode topic to release cup_1
 	ros2 topic pub --once /grip std_msgs/msg/Int32 "{data: 100}" 
 
+20.5: python3 ../utils/return_to_ready.py
+
 21) publish to AlignNode topic cup_supps 		# to move back to pick up the supplements
 	ros2 topic pub --once /align_to_marker  std_msgs/msg/String "{data: 'cup_supps'}"
 
