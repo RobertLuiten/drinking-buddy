@@ -8,76 +8,76 @@ ros.on('connection', () => console.log("Connected to rosbridge"));
 ros.on('error', err => console.log("Error:", err));
 ros.on('close', () => console.log("Connection closed"));
 
-// Publisher for pose manager commands
-const poseMgrPub = new ROSLIB.Topic({
+// topic for bot to send requests to the robot
+const robotRequest = new ROSLIB.Topic({
     ros: ros,
-    name: "/pose_mgr",
+    name: "/robot_requests",
     messageType: "std_msgs/String"
 });
 
-// Subscriber for pose list updates
-const poseListSub = new ROSLIB.Topic({
+// topic for robot to recieve status updates
+const robotStatus = new ROSLIB.Topic({
     ros: ros,
-    name: "/pose_list",
-    messageType: "std_msgs/msg/String"
+    name: "/robot_status",
+    messageType: "std_msgs/String"
+});
+
+// topic for robot to send & receive location data
+const robotBroadcastLocation = new ROSLIB.Topic({
+    ros: ros,
+    name: "/robot_broadcast_location",
+    messageType: "std_msgs/String"
 });
 
 // Request pose list on load
 window.onload = function() {
-  poseMgrPub.publish(new ROSLIB.Message({
-    data: JSON.stringify({ command: "list" })
+  robotRequest.publish(new ROSLIB.Message({
+    data: JSON.stringify({ command: "get_init_status" })
   }));
 };
 
-// Save pose
-function savePose() {
-  const name = document.getElementById("poseName").value;
-  if (!name) return;
 
-  poseMgrPub.publish(new ROSLIB.Message({
-    data: JSON.stringify({
-      command: "save",
-      name: name
-    })
-  }));
-}
 
-// Restore pose
-function restorePose(name) {
-  poseMgrPub.publish(new ROSLIB.Message({
-    data: JSON.stringify({
-      command: "restore",
-      name: name
-    })
-  }));
-}
-
-// Receive pose list
-poseListSub.subscribe(function(msg) {
-  const names = JSON.parse(msg.data);
-  renderPoseCards(names);
+// Receive status updates
+robotStatus.subscribe(function(msg) {
+  const cur_status = JSON.parse(msg.data);
+  display_status(cur_status);
 });
 
-// Render pose cards
-function renderPoseCards(poses) {
-    const container = document.getElementById("poseList");
-    container.innerHTML = "";
+function display_status(cur_status) {
+  window.alert("display_status not implemented!");
+}
 
-    poses.forEach(name => {
-    if (!name) return;
-    const card = document.createElement("div");
-    card.className = "pose-card";
-    card.innerText = name;
-    card.onclick = () => restorePose(name);
-    container.appendChild(card);
-    });
+// Receive robot location
+robotBroadcastLocation.subscribe(function(msg) {
+  const loc = JSON.parse(msg.data);
+  display_status(cur_status);
+});
+
+function update_location(cur_status) {
+  window.alert("update_location not implemented!");
+}
+
+function display_status(cur_status) {
+  console.log(" ");
 }
 
 function clickNavigationMap(event) {
-    var xCoordinate = event.offsetX;
-    var yCoordinate = event.offsetY;
+    var img_x = event.target.width;
+    var img_y = event.target.height;
+    var click_x = event.offsetX;
+    var click_y = event.offsetY;
     var navigation_list = document.getElementById('navigation_list');
     var entry = document.createElement('li');
-    entry.appendChild(document.createTextNode('Sent (' + xCoordinate + ',' + yCoordinate + ') to rosbridge'));
+    
+    robotBroadcastLocation.publish(new ROSLIB.Message({
+      data: JSON.stringify({
+        img_x : img_x,
+        img_y : img_y,
+        click_x : click_x,
+        click_y : click_y
+      })
+    }));
+    entry.appendChild(document.createTextNode('Sent Click (' + click_x + ',' + click_y + ') out of Image [' + img_x + ',' + img_y + '] to rosbridge'));
     navigation_list.appendChild(entry);
 }
