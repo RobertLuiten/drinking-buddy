@@ -11,7 +11,7 @@ map_img.style = "background: url('" + img.src + " ');" +
 // Connect to rosbridge
 console.log("Loading rosbridge!");
 const ros = new ROSLIB.Ros({
-    url: "ws://172.28.7.144:9090"
+    url: "wss://172.28.7.144:9090"
 });
 
 ros.on('connection', () => console.log("Connected to rosbridge"));
@@ -55,9 +55,15 @@ robotStatus.subscribe(function(msg) {
 });
 
 function display_status(cur_status) {
+  if (cur_status == null) {
+    console.log("Empty Status");
+    return;
+  }
   console.log("Current Robot Status:");
   console.log("State: " + cur_status.state);
   console.log("Status: " + cur_status.status);
+  document.getElementById("robotDetect").innerText = "Robot: DETECTED";
+  document.getElementById("currentAction").innerText = "Current Action: " + cur_status.status;
 }
 
 // Receive robot location
@@ -68,10 +74,6 @@ robotBroadcastLocation.subscribe(function(msg) {
 
 function update_location(cur_status) {
   window.alert("update_location not implemented!");
-}
-
-function display_status(cur_status) {
-  console.log(" ");
 }
 
 function clickNavigationMap(event) {
