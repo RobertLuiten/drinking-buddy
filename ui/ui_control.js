@@ -11,7 +11,7 @@ map_img.style = "background: url('" + img.src + " ');" +
 // Connect to rosbridge
 console.log("Loading rosbridge!");
 const ros = new ROSLIB.Ros({
-    url: "wss://172.28.7.144:9090"
+    url: "ws://172.28.7.144:9090"
 });
 
 ros.on('connection', () => console.log("Connected to rosbridge"));
