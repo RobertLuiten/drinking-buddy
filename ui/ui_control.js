@@ -11,7 +11,7 @@ map_img.style = "background: url('" + img.src + " ');" +
 // Connect to rosbridge
 console.log("Loading rosbridge!");
 const ros = new ROSLIB.Ros({
-    url: "ws://172.28.7.137:9090"
+    url: "ws://172.28.7.144:9090"
 });
 
 ros.on('connection', () => console.log("Connected to rosbridge"));
@@ -55,7 +55,9 @@ robotStatus.subscribe(function(msg) {
 });
 
 function display_status(cur_status) {
-  window.alert("display_status not implemented!");
+  console.log("Current Robot Status:");
+  console.log("State: " + cur_status.state);
+  console.log("Status: " + cur_status.status);
 }
 
 // Receive robot location
