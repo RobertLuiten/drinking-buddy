@@ -1,0 +1,36 @@
+<!-- FOR REFERENCE ONLY; DO NOT CHANGE -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stretch Pose Manager</title>
+  <script src="https://cdn.jsdelivr.net/gh/RobotWebTools/roslibjs/build/roslib.min.js"></script>
+
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    .pose-card {
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #f7f7f7;
+    }
+    .pose-card:hover {
+      background: #eaeaea;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Save a Pose</h2>
+  <input id="poseName" placeholder="pose name" />
+  <button onclick="savePose()">Save</button>
+
+  <h2>Saved Poses</h2>
+  <div id="poseList"></div>
+
+  <script src="pman_control_ref.js"></script>
+
+</body>
+</html>
+
