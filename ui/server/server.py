@@ -26,12 +26,12 @@ robot_status['connected'] = ros.is_connected
 # /robot_in_map: will send a json string with "img_x", "img_y", "click_x", and "click_y" fields within the data field
 # /robot_out_map: will send a json string with "map_x", "map_y", "robot_x", and "robot_y" fields within the data field
 # 
-# in /robot_requests, "state" and "status" fields are ill-defined. 
+# in /robot_status, "state" and "status" fields are ill-defined. 
 # Currently though, "state" is where the string that describes the robot's current state (e.g. "idle", "moving", "error") should go,
 # and "status" is where any additional information about the robot's current state should go 
 # (e.g. if state is "error", status might be "stuck on obstacle")
 # 
-# Feel free to add more fields to /robot_requests, just tell Derick so he can add it to the frontend
+# Feel free to add more fields to /robot_status, just tell Derick so he can add it to the frontend
 robot_request_broadcast = roslibpy.Topic(ros, '/robot_requests', 'std_msgs/String')
 robot_status_listener = roslibpy.Topic(ros, '/robot_status', 'std_msgs/String')
 robot_map_broadcast = roslibpy.Topic(ros, '/robot_in_map', 'std_msgs/String')
