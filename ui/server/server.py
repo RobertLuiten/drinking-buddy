@@ -26,6 +26,8 @@ robot_status['connected'] = ros.is_connected
 # /robot_in_map: will send a json string with "img_x", "img_y", "click_x", and "click_y" fields within the data field
 # /robot_out_map: will send a json string with "map_x", "map_y", "robot_x", and "robot_y" fields within the data field
 # 
+# The only thing that should be coming out of /robot_requests is the string command "start"
+#
 # in /robot_status, "state" and "status" fields are ill-defined. 
 # Currently though, "state" is where the string that describes the robot's current state (e.g. "idle", "moving", "error") should go,
 # and "status" is where any additional information about the robot's current state should go 
