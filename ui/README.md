@@ -1,6 +1,6 @@
 # Setting up the server:
 ## Set up the venv
-Make sure you are in the /ui/server folder!
+Make sure you are in the /ui/server folder! (or the main /ui/ folder. That works too)
 ```
 python3 -m venv .venv
 . .venv/bin/activate

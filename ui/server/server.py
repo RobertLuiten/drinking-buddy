@@ -20,6 +20,18 @@ else:
     print("It's ROS-OVER")
 robot_status['connected'] = ros.is_connected
 
+# NOTE: ALL ROS TOPICS HAVE THEIR DATA WITHIN THE DATA FIELD
+# /robot_requests: will send commands *directly* within the data field (no json)
+# /robot_status: will send a json string with "state" and "status" fields within the data field
+# /robot_in_map: will send a json string with "img_x", "img_y", "click_x", and "click_y" fields within the data field
+# /robot_out_map: will send a json string with "map_x", "map_y", "robot_x", and "robot_y" fields within the data field
+# 
+# in /robot_requests, "state" and "status" fields are ill-defined. 
+# Currently though, "state" is where the string that describes the robot's current state (e.g. "idle", "moving", "error") should go,
+# and "status" is where any additional information about the robot's current state should go 
+# (e.g. if state is "error", status might be "stuck on obstacle")
+# 
+# Feel free to add more fields to /robot_requests, just tell Derick so he can add it to the frontend
 robot_request_broadcast = roslibpy.Topic(ros, '/robot_requests', 'std_msgs/String')
 robot_status_listener = roslibpy.Topic(ros, '/robot_status', 'std_msgs/String')
 robot_map_broadcast = roslibpy.Topic(ros, '/robot_in_map', 'std_msgs/String')
@@ -54,9 +66,9 @@ def robot_command(cmd):
     emit('command_ack', "Done!")
 
 @socketio.on('map_click')
-def send_new_click(map_json):
-    print(map_json)
-    robot_request_broadcast.publish(roslibpy.Message({'data': map_json}))
+def send_new_click(map):
+    print(map)
+    robot_map_broadcast.publish(roslibpy.Message({'data': json.dumps(map)}))
 
 ## HELPER FUNCTIONS
 
