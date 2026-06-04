@@ -1,8 +1,7 @@
 # Setting up the server:
 ## Set up the venv
+Make sure you are in the /ui/server folder!
 ```
-mkdir myproject
-cd myproject
 python3 -m venv .venv
 . .venv/bin/activate
 ```
