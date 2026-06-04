@@ -9,70 +9,112 @@ map_img.style = "background: url('" + img.src + " ');" +
 
 
 // Connect to rosbridge
-console.log("Loading rosbridge!");
-const ros = new ROSLIB.Ros({
-    url: "ws://172.28.7.144:9090"
+// console.log("Loading rosbridge!");
+// const ros = new ROSLIB.Ros({
+//     url: "ws://172.28.7.144:9090"
+// });
+
+// ros.on('connection', () => console.log("Connected to rosbridge"));
+// ros.on('error', err => console.log("Error:", err));
+// ros.on('close', () => console.log("Connection closed"));
+
+
+// SOCKET SETUP
+console.log("Connecting to server socket");
+var socket = io();
+
+
+// SOCKET CALLBACKS
+socket.on('connect', function() {
+  socket.emit('my event', {data: 'I\'m connected!'});
+  console.log("Connected to server!")
+  document.getElementById("serverDetect").innerText = "Server: FOUND";
 });
 
-ros.on('connection', () => console.log("Connected to rosbridge"));
-ros.on('error', err => console.log("Error:", err));
-ros.on('close', () => console.log("Connection closed"));
+socket.on('disconnect', function() {
+  document.getElementById("serverDetect").innerText = "Server: NOT FOUND";
+})
 
+socket.on('status_update', function(status) {
+  console.log(status);
+  const cur_status = JSON.parse(status);
+  display_status(cur_status);
+})
+
+socket.on('map_info', function(map_json) {
+  console.log(map_json);
+  const map_data = JSON.parse(map_json);
+  update_location(map_data);
+
+})
 // topic for bot to send requests to the robot
-const robotRequest = new ROSLIB.Topic({
-    ros: ros,
-    name: "/robot_requests",
-    messageType: "std_msgs/String"
-});
+// const robotRequest = new ROSLIB.Topic({
+//     ros: ros,
+//     name: "/robot_requests",
+//     messageType: "std_msgs/String"
+// });
 
 // topic for robot to recieve status updates
-const robotStatus = new ROSLIB.Topic({
-    ros: ros,
-    name: "/robot_status",
-    messageType: "std_msgs/String"
-});
+// const robotStatus = new ROSLIB.Topic({
+//     ros: ros,
+//     name: "/robot_status",
+//     messageType: "std_msgs/String"
+// });
 
 // topic for robot to send & receive location data
-const robotBroadcastLocation = new ROSLIB.Topic({
-    ros: ros,
-    name: "/robot_broadcast_location",
-    messageType: "std_msgs/String"
-});
+// const robotBroadcastLocation = new ROSLIB.Topic({
+//     ros: ros,
+//     name: "/robot_broadcast_location",
+//     messageType: "std_msgs/String"
+// });
 
 // Request pose list on load
-window.onload = function() {
-  robotRequest.publish(new ROSLIB.Message({
-    data: JSON.stringify({ command: "get_init_status" })
-  }));
-};
+// window.onload = function() {
+//   robotRequest.publish(new ROSLIB.Message({
+//     data: JSON.stringify({ command: "get_init_status" })
+//   }));
+// };
 
 
 
 // Receive status updates
-robotStatus.subscribe(function(msg) {
-  const cur_status = JSON.parse(msg.data);
-  display_status(cur_status);
-});
+// robotStatus.subscribe(function(msg) {
+//   const cur_status = JSON.parse(msg.data);
+//   display_status(cur_status);
+// });
 
+
+// HELPER FUNCTIONS
 function display_status(cur_status) {
   if (cur_status == null) {
     console.log("Empty Status");
     return;
   }
+  console.log(typeof cur_status.connected)
   console.log("Current Robot Status:");
-  console.log("State: " + cur_status.state);
-  console.log("Status: " + cur_status.status);
-  document.getElementById("robotDetect").innerText = "Robot: DETECTED";
-  document.getElementById("currentAction").innerText = "Current Action: " + cur_status.status;
+  console.log("Connected: " + cur_status.connected);
+  document.getElementById("robotDetect").innerText = "Robot: " + ((cur_status.connected) ? ("FOUND") : ("NOT FOUND"));
+  if (cur_status.connected) {
+    console.log("State: " + cur_status.state);
+    console.log("Status: " + cur_status.status);
+    document.getElementById("currentAction").innerText = "Current Action: " + cur_status.status;
+  }
+  
 }
 
-// Receive robot location
-robotBroadcastLocation.subscribe(function(msg) {
-  const loc = JSON.parse(msg.data);
-  display_status(cur_status);
-});
 
-function update_location(cur_status) {
+
+// Receive robot location
+// robotBroadcastLocation.subscribe(function(msg) {
+//   const loc = JSON.parse(msg.data);
+//   display_status(cur_status);
+// });
+
+function update_location(map_data) {
+  map_data.map_x;
+  map_data.map_y;
+  map_data.robot_x;
+  map_data.robot_y;
   window.alert("update_location not implemented!");
 }
 
@@ -89,15 +131,13 @@ function clickNavigationMap(event) {
     var entry = document.createElement('li');
     
     click_dot.style = "height: 14px; width: 14px; margin-top: " + (click_y - (click_dot.height / 2)) + "px; margin-left: " + (click_x - (click_dot.width / 2)) + "px;";
-
-    robotBroadcastLocation.publish(new ROSLIB.Message({
-      data: JSON.stringify({
-        img_x : img_x,
-        img_y : img_y,
-        click_x : click_x,
-        click_y : click_y
-      })
-    }));
+    
+    socket.emit('map_click', {
+      img_x : img_x,
+      img_y : img_y,
+      click_x : click_x,
+      click_y : click_y
+    });
     entry.appendChild(document.createTextNode('Sent Click (' + click_x + ',' + click_y + ') out of Image [' + img_x + ',' + img_y + '] to rosbridge'));
     navigation_list.appendChild(entry);
 }
@@ -108,9 +148,10 @@ function startRobot(event) {
   var reset_button = document.getElementById("robotStartButton");
   start_button.disabled = false;
   reset_button.disabled = true;
-  robotRequest.publish(new ROSLIB.Message({
-    data: JSON.stringify({ command: "start" })
-  }));
+  // robotRequest.publish(new ROSLIB.Message({
+  //   data: JSON.stringify({ command: "start" })
+  // }));
+  socket.emit('robot_command', 'start')
 }
 function resetPosition(event) {
   var start_button = document.getElementById("robotResetButton");
