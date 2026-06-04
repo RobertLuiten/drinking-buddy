@@ -1,6 +1,6 @@
 // Automatically calculate image size
 const img = new Image();
-img.src = 'placeholder.jpg'
+img.src = document.getElementById("map_target").href;
 var map_img = document.getElementById("navigation_map");
 map_img.style = "background: url('" + img.src + " ');" +
   "background-size:" + img.naturalWidth / 2 + "px;" +  

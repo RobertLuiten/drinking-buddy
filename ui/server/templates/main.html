@@ -2,9 +2,11 @@
 <html>
 <head>
   <title>Drinking Buddy Manager</title>
-  <script src="https://cdn.jsdelivr.net/gh/RobotWebTools/roslibjs/build/roslib.min.js"></script>
+  <script src="{{ url_for('static', filename='ui_control.js') }}"></script>
 
-  <link rel="stylesheet" type="text/css" href="csharp.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='csharp.css') }}">
+  <link id="map_target" href="{{ url_for('static', filename='placeholder.jpg') }}">
+
 </head>
 <body>
   <h1>Drinking (Drinky?) Buddy (Buddies?)</h1>
@@ -19,9 +21,10 @@
   <div id="currentStateList"></div>
   <h2>Map</h2>
   <div id="navigation_map" name="navigation_map"
-  style="background: url('placeholder.jpg'); width:100%; height:100%;" alt="Navigation Map" onclick="clickNavigationMap(event);" 
+  style="background: url('/static/placeholder.jpg'); width:100%; height:100%;" 
+  alt="Navigation Map" onclick="clickNavigationMap(event);" 
   draggable="false">
-    <img src="white_dot.png" style="height: 14px; width: 14px; visibility: hidden;" draggable="false" class="noselect" id="click_dot"/>
+    <img src="{{ url_for('static', filename='white_dot.png') }}" style="height: 14px; width: 14px; visibility: hidden;" draggable="false" class="noselect" id="click_dot"/>
   </div>  
   <ol id="navigation_list"></ol>
   <script src="ui_control.js"></script>
