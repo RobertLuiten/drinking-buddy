@@ -19,3 +19,17 @@ body { font-family: sans-serif; padding: 20px; }
             user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome, Edge, Opera and Firefox */
 }
+.text_segment, .map_segment {
+    float:left; 
+    display:inline;
+    padding-right :10%;
+}
+
+.render_dot {
+    position:absolute;
+    height: 14px; 
+    width: 14px; 
+}
+#navigation_map {
+    position: relative;
+}
