@@ -10,25 +10,32 @@
 
 </head>
 <body>
-  <h1>Drinking (Drinky?) Buddy (Buddies?)</h1>
-  <h2>Actions</h2>
-  <button id="robotStartButton" onclick="startRobot()">Start</button>
-  <button id="robotResetButton" onclick="resetPosition()" disabled>Reset</button>
-  <button id="voiceButton" onclick="startVoice()">Start Voice</button>
-  <h2>Current Status</h2>
-  <p id="serverDetect">Server: NOT FOUND</p>
-  <p id="robotDetect">Robot: NOT FOUND</p>
-  <p id="battery">Battery: NOT FOUND</p>
-  <p id="currentAction">Current Action: NOT FOUND</p>
-  <div id="currentStateList"></div>
-  <h2>Map</h2>
-  <div id="navigation_map" name="navigation_map"
-  style="background: url('/static/placeholder.jpg'); width:100%; height:100%;" 
-  alt="Navigation Map" onclick="clickNavigationMap(event);" 
-  draggable="false">
-    <img src="{{ url_for('static', filename='white_dot.png') }}" style="height: 14px; width: 14px; visibility: hidden;" draggable="false" class="noselect" id="click_dot"/>
-  </div>  
-  <ol id="navigation_list"></ol>
+  <div class="text_segment">
+    <h1>Drinking Buddy Demo</h1>
+    <h2>Actions</h2>
+    <button id="robotStartButton" onclick="startRobot()" style="height:200px;width:400px"><bold>Start</bold></button>
+    <!-- <button id="robotResetButton" onclick="resetPosition()" disabled>Reset</button>
+    <button id="voiceButton" onclick="startVoice()">Start Voice</button> -->
+    <h2>Current Status</h2>
+    <p id="serverDetect">Server: NOT FOUND</p>
+    <p id="robotDetect">Robot: NOT FOUND</p>
+    <!-- <p id="battery">Battery: NOT FOUND</p> -->
+    <p id="currentAction">Current Action: NOT FOUND</p>
+    <!-- <div id="currentStateList"></div> -->
+  </div>
+  
+  <div class="map_segment">
+    <h2>Map</h2>
+    <div id="navigation_map" name="navigation_map"
+    style="background: url('/static/placeholder.jpg'); width:100%; height:100%;" 
+    alt="Navigation Map" onclick="clickNavigationMap(event);" 
+    draggable="false">
+      <img src="{{ url_for('static', filename='white_dot.png') }}" style="height: 14px; width: 14px; visibility: hidden;" draggable="false" class="noselect" id="click_dot"/>
+      <img src="{{ url_for('static', filename='green_dot.png') }}" style="height: 14px; width: 14px; visibility: hidden;" draggable="false" class="noselect" id="robot_dot"/>
+    </div>  
+    <ol id="navigation_list"></ol>
+  </div>
+
   <script src="{{ url_for('static', filename='ui_control.js') }}"></script>
 </body>
 </html>

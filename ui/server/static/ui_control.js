@@ -7,7 +7,6 @@ map_img.style = "background: url('" + img.src + " ');" +
   "width:" + img.naturalWidth / 2 + "px;" +  
   "height:" + img.naturalHeight / 2+ "px; object-fit: contain;"
 
-
 // Connect to rosbridge
 // console.log("Loading rosbridge!");
 // const ros = new ROSLIB.Ros({
@@ -111,16 +110,21 @@ function display_status(cur_status) {
 // });
 
 function update_location(map_data) {
-  map_data.map_x;
-  map_data.map_y;
-  map_data.robot_x;
-  map_data.robot_y;
-  window.alert("update_location not implemented!");
+  var robot_dot = document.getElementById('robot_dot');
+  
+  var img_x = map_img.clientWidth;
+  var img_y = map_img.clientHeight;
+  var x_ratio = map_data.robot_x / map_data.map_x;
+  var y_ratio = map_data.robot_y / map_data.map_y;
+  var dot_x = img_x * x_ratio - (robot_dot.width / 2)
+  var dot_y = img_y * y_ratio - (robot_dot.height / 2)
+  robot_dot.style = "height: 14px; width: 14px; margin-top: " + dot_y + "px; margin-left: " + dot_x + "px;";
 }
 
 function clickNavigationMap(event) {
     var click_dot = document.getElementById('click_dot');
-    if (event.target == click_dot) {
+    var robot_dot = document.getElementById('robot_dot');
+    if (event.target == click_dot || event.target == robot_dot) {
       return;
     }
     var img_x = event.target.clientWidth;
@@ -138,21 +142,22 @@ function clickNavigationMap(event) {
       click_x : click_x,
       click_y : click_y
     });
-    entry.appendChild(document.createTextNode('Sent Click (' + click_x + ',' + click_y + ') out of Image [' + img_x + ',' + img_y + '] to rosbridge'));
-    navigation_list.appendChild(entry);
+    // entry.appendChild(document.createTextNode('Sent Click (' + click_x + ',' + click_y + ') out of Image [' + img_x + ',' + img_y + '] to rosbridge'));
+    // navigation_list.appendChild(entry);
 }
 
 
 function startRobot(event) {
   var start_button = document.getElementById("robotResetButton");
-  var reset_button = document.getElementById("robotStartButton");
-  start_button.disabled = false;
-  reset_button.disabled = true;
+  // var reset_button = document.getElementById("robotStartButton");
+  // start_button.disabled = false;
+  // reset_button.disabled = true;
   // robotRequest.publish(new ROSLIB.Message({
   //   data: JSON.stringify({ command: "start" })
   // }));
   socket.emit('robot_command', 'start')
 }
+
 function resetPosition(event) {
   var start_button = document.getElementById("robotResetButton");
   var reset_button = document.getElementById("robotStartButton");
