@@ -1,12 +1,12 @@
-const IMG_SIZE_RAT = 2.3
+const IMG_SIZE_RATE = 0.5
 // Automatically calculate image size
 const img = new Image();
 img.src = document.getElementById("map_target").href;
 var map_img = document.getElementById("navigation_map");
 map_img.style = "background: url('" + img.src + " ');" +
-  "background-size:" + img.naturalWidth / IMG_SIZE_RAT + "px;" +  
-  "width:" + img.naturalWidth / IMG_SIZE_RAT + "px;" +  
-  "height:" + img.naturalHeight / IMG_SIZE_RAT + "px; object-fit: contain;"
+  "background-size:" + img.naturalWidth / IMG_SIZE_RATE + "px;" +  
+  "width:" + img.naturalWidth / IMG_SIZE_RATE + "px;" +  
+  "height:" + img.naturalHeight / IMG_SIZE_RATE + "px; object-fit: contain;"
 
 // Connect to rosbridge
 // console.log("Loading rosbridge!");

@@ -6,7 +6,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
 
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='csharp.css') }}">
-  <link id="map_target" href="{{ url_for('static', filename='placeholder.jpg') }}">
+  <link id="map_target" href="{{ url_for('static', filename='map.png') }}">
 
 </head>
 <body>
@@ -27,7 +27,7 @@
   <div class="map_segment">
     <h2>Map</h2>
     <div id="navigation_map" name="navigation_map"
-    style="background: url('/static/placeholder.jpg');" 
+    style="background: url('/static/map.png');" 
     alt="Navigation Map" onclick="clickNavigationMap(event);" 
     draggable="false">
       <img src="{{ url_for('static', filename='white_dot.png') }}" class="render_dot" style="visibility: hidden;" draggable="false" class="noselect" id="click_dot"/>
