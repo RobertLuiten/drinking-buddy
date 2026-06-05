@@ -6,8 +6,10 @@ import json
 ## VAR INITIALIZATION
 robot_status = dict()
 
+ROBOT_IP = "172.28.7.121"
+
 ## ROS SETUP
-ros = roslibpy.Ros(host='localhost', port=9090)
+ros = roslibpy.Ros(host=ROBOT_IP, port=9090)
 print("Connecting to ROS...")
 try:
     ros.run(timeout=2)
@@ -34,7 +36,7 @@ robot_status['connected'] = ros.is_connected
 # (e.g. if state is "error", status might be "stuck on obstacle")
 # 
 # Feel free to add more fields to /robot_status, just tell Derick so he can add it to the frontend
-robot_request_broadcast = roslibpy.Topic(ros, '/robot_requests', 'std_msgs/String')
+robot_request_broadcast = roslibpy.Topic(ros, '/robot_requests', 'std_msgs/msg/String')
 robot_status_listener = roslibpy.Topic(ros, '/robot_status', 'std_msgs/String')
 robot_map_broadcast = roslibpy.Topic(ros, '/robot_in_map', 'std_msgs/String')
 robot_map_listener = roslibpy.Topic(ros, '/robot_out_map', 'std_msgs/String')
