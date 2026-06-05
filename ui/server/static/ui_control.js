@@ -1,11 +1,12 @@
+const IMG_SIZE_RAT = 2.3
 // Automatically calculate image size
 const img = new Image();
 img.src = document.getElementById("map_target").href;
 var map_img = document.getElementById("navigation_map");
 map_img.style = "background: url('" + img.src + " ');" +
-  "background-size:" + img.naturalWidth / 2 + "px;" +  
-  "width:" + img.naturalWidth / 2 + "px;" +  
-  "height:" + img.naturalHeight / 2+ "px; object-fit: contain;"
+  "background-size:" + img.naturalWidth / IMG_SIZE_RAT + "px;" +  
+  "width:" + img.naturalWidth / IMG_SIZE_RAT + "px;" +  
+  "height:" + img.naturalHeight / IMG_SIZE_RAT + "px; object-fit: contain;"
 
 // Connect to rosbridge
 // console.log("Loading rosbridge!");
@@ -110,15 +111,17 @@ function display_status(cur_status) {
 // });
 
 function update_location(map_data) {
+  console.log(map_data + " type: " + typeof(map_data));
   var robot_dot = document.getElementById('robot_dot');
   
-  var img_x = map_img.clientWidth;
-  var img_y = map_img.clientHeight;
+  var img_x = map_img.offsetWidth;
+  var img_y = map_img.offsetHeight;
   var x_ratio = map_data.robot_x / map_data.map_x;
   var y_ratio = map_data.robot_y / map_data.map_y;
   var dot_x = img_x * x_ratio - (robot_dot.width / 2)
   var dot_y = img_y * y_ratio - (robot_dot.height / 2)
-  robot_dot.style = "height: 14px; width: 14px; margin-top: " + dot_y + "px; margin-left: " + dot_x + "px;";
+  robot_dot.style = "margin-top: " + dot_y + "px; margin-left: " + dot_x + "px;";
+  console.log(img_x)
 }
 
 function clickNavigationMap(event) {
@@ -134,7 +137,7 @@ function clickNavigationMap(event) {
     var navigation_list = document.getElementById('navigation_list');
     var entry = document.createElement('li');
     
-    click_dot.style = "height: 14px; width: 14px; margin-top: " + (click_y - (click_dot.height / 2)) + "px; margin-left: " + (click_x - (click_dot.width / 2)) + "px;";
+    click_dot.style = "margin-top: " + (click_y - (click_dot.height / 2)) + "px; margin-left: " + (click_x - (click_dot.width / 2)) + "px;";
     
     socket.emit('map_click', {
       img_x : img_x,

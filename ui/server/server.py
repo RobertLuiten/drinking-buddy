@@ -71,6 +71,7 @@ def robot_command(cmd):
 def send_new_click(map):
     print(map)
     robot_map_broadcast.publish(roslibpy.Message({'data': json.dumps(map)}))
+    # test_broadcast_dot(map)
 
 ## HELPER FUNCTIONS
 
@@ -90,6 +91,16 @@ def handle_new_map(map_json):
     out_map["map_y"] = map["map_y"]
     out_map["robot_x"] = map["robot_x"]
     out_map["robot_y"] = map["robot_y"]
+    socketio.emit('map_info', json.dumps(out_map))
+
+## TESTING FUNCTION
+
+def test_broadcast_dot(map) :
+    out_map = dict()
+    out_map["map_x"] = map["img_x"]
+    out_map["map_y"] = map["img_y"]
+    out_map["robot_x"] = map["click_x"] / 2
+    out_map["robot_y"] = map["click_y"] / 2
     socketio.emit('map_info', json.dumps(out_map))
 
 # Main

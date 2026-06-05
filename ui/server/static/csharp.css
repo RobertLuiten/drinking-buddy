@@ -24,3 +24,12 @@ body { font-family: sans-serif; padding: 20px; }
     display:inline;
     padding-right :10%;
 }
+
+.render_dot {
+    position:absolute;
+    height: 14px; 
+    width: 14px; 
+}
+#navigation_map {
+    position: relative;
+}
