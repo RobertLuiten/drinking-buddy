@@ -27,8 +27,8 @@ body { font-family: sans-serif; padding: 20px; }
 
 .render_dot {
     position:absolute;
-    height: 14px; 
-    width: 14px; 
+    height: 26px; 
+    width: 26px; 
 }
 #navigation_map {
     position: relative;

@@ -97,6 +97,7 @@ function display_status(cur_status) {
   if (cur_status.connected) {
     console.log("State: " + cur_status.state);
     console.log("Status: " + cur_status.status);
+    document.getElementById("currentState").innerText = "Current State: " + cur_status.state;
     document.getElementById("currentAction").innerText = "Current Action: " + cur_status.status;
   }
   
