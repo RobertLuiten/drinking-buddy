@@ -6,7 +6,9 @@ import json
 ## VAR INITIALIZATION
 robot_status = dict()
 
-ROBOT_IP = "172.28.7.121"
+# ROCKY: 172.28.7.144
+# SLINKY: "172.28.7.121"
+ROBOT_IP = "172.28.7.144"
 
 ## ROS SETUP
 ros = roslibpy.Ros(host=ROBOT_IP, port=9090)

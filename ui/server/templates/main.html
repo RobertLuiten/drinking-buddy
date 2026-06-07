@@ -11,24 +11,42 @@
 </head>
 <body>
   <div class="text_segment">
-    <h1>Drinking Buddy Demo</h1>
+    <h1>Drinking Buddy</h1>
     <h2>Actions</h2>
-    <button id="robotStartButton" onclick="startRobot()" style="height:200px;width:400px"><bold>Start</bold></button>
+    <button id="robotStartButton" onclick="startRobot()" class="start-button"><bold>Start</bold></button>
     <!-- <button id="robotResetButton" onclick="resetPosition()" disabled>Reset</button>
     <button id="voiceButton" onclick="startVoice()">Start Voice</button> -->
-    <h2>Current Status</h2>
-    <p id="serverDetect">Server: NOT FOUND</p>
-    <p id="robotDetect">Robot: NOT FOUND</p>
-    <!-- <p id="battery">Battery: NOT FOUND</p> -->
-    <p id="currentState">Current State: NOT FOUND</p>
-    <p id="currentAction">Current Action: NOT FOUND</p>
-    <!-- <div id="currentStateList"></div> -->
+<div class="status-panel">
+    <h2>System Status</h2>
+
+    <div class="status-grid">
+        <div class="status-card">
+            <span class="label">Server</span>
+            <span id="serverDetect" class="value">NOT FOUND</span>
+        </div>
+
+        <div class="status-card">
+            <span class="label">Robot</span>
+            <span id="robotDetect" class="value">NOT FOUND</span>
+        </div>
+
+        <div class="status-card">
+            <span class="label">Current State</span>
+            <span id="currentState" class="value">NOT FOUND</span>
+        </div>
+
+        <div class="status-card">
+            <span class="label">Current Action</span>
+            <span id="currentAction" class="value">NOT FOUND</span>
+        </div>
+    </div>
+</div>
   </div>
   
   <div class="map_segment">
-    <h2>Map</h2>
+    <h1>Map</h1>
     <div id="navigation_map" name="navigation_map"
-    style="background: url('/static/map.png');" 
+    class="map" 
     alt="Navigation Map" onclick="clickNavigationMap(event);" 
     draggable="false">
       <img src="{{ url_for('static', filename='red_dot.png') }}" class="render_dot" style="visibility: hidden;" draggable="false" class="noselect" id="click_dot"/>

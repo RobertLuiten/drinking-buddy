@@ -7,9 +7,27 @@ body { font-family: sans-serif; padding: 20px; }
     cursor: pointer;
     background: #f7f7f7;
 }
+
+.start-button {
+    height:200px;
+    width:400px;
+    font-size: 48px;
+    background: #3b82f6;
+    border-radius: 16px;
+    border: 1px solid #fff;
+    color: #fff;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.start-button:hover {
+    background: #2e59b4;
+    box-shadow: 0 12px 32px rgba(37, 99, 235, 0.2);
+}
+
 .pose-card:hover {
     background: #eaeaea;
 }
+
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -19,17 +37,88 @@ body { font-family: sans-serif; padding: 20px; }
             user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome, Edge, Opera and Firefox */
 }
-.text_segment, .map_segment {
-    float:left; 
-    display:inline;
-    padding-right :10%;
+.text_segment,
+.map_segment {
+    float: left;
+    display: inline-block;
+
+    padding: 1rem;
+    margin: 0.5rem 1rem 0.5rem 0;
+    height: 100%;
+
+    max-width: 700px;
+    margin: 20px;
+    padding: 24px;
+    background: #1e293b;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-family: "Segoe UI", sans-serif;
+
+    transition: all 0.2s ease;
 }
+
 
 .render_dot {
     position:absolute;
     height: 26px; 
     width: 26px; 
 }
+.map {
+    background: url('/static/map.png');
+    width: 600px;
+    height: 400px;
+    border-radius: 12px; /* adjust as needed */
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+.map:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.12);
+}
 #navigation_map {
     position: relative;
+}
+
+.status-panel h2 {
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #f8fafc;
+}
+
+.status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.status-card {
+    background: #334155;
+    padding: 16px;
+    border-radius: 12px;
+    border-left: 4px solid #3b82f6;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.status-card:hover {
+    transform: translateY(-2px);
+    background: #3f4d63;
+}
+
+.label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #94a3b8;
+}
+
+.value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #f8fafc;
 }
